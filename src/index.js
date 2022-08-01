@@ -9,7 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from "./modules";
 import { tempSetUser, check } from "./modules/user";
 import reportWebVitals from './reportWebVitals';
-// import jwtMiddleware from './lib/jwtMiddleware';
+import jwtMiddleware from './lib/jwtMiddleware';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)),);
