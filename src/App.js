@@ -5,10 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import WritePage from "./pages/WritePage";
 import PostPage from "./pages/PostPage";
 
-
 const App = () => {
-
-
 
     return (
         <Routes>

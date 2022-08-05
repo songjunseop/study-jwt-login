@@ -6,13 +6,14 @@ import { check } from "../../modules/user";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-const LoginForm = ({ history }) => {
+const LoginForm = ({ }) => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { form, auth, authError } = useSelector(({ auth }) => ({
         form: auth.login,
         auth: auth.auth,
+        jwt: auth.jwt,
         authError: auth.authError,
         user: auth.user,
     }));
@@ -46,28 +47,24 @@ const LoginForm = ({ history }) => {
             return;
         }
         if (auth) {
+            navigate('/');
             console.log('로그인 성공');
             localStorage.setItem('auth', JSON.stringify(auth));
             dispatch(check());
         }
-    }, [auth, authError, dispatch]);
-
-    useEffect(() => {
-        if (auth) {
-            navigate('/');
-            try {
-                localStorage.setItem('auth', JSON.stringify(auth));
-                // localStorage.setItem('auth', JSON.stringify(auth.user.username))
-            } catch (e) {
-                console.log('localStorage is not working');
-            }
-        }
-    }, [navigate, auth]);
+    }, [auth, authError, dispatch, navigate]);
 
     // useEffect(() => {
-    //     axios.get('http://localhost:1337/users')
-    //         .then(res => console.log(res.data))
-    // }, [])
+    //     if (auth) {
+    //         navigate('/');
+    //         try {
+    //             localStorage.setItem('auth', JSON.stringify(auth));
+    //             // localStorage.setItem('auth', JSON.stringify(auth.user.username))
+    //         } catch (e) {
+    //             console.log('localStorage is not working');
+    //         }
+    //     }
+    // }, [navigate, auth]);
 
     return (
         <AuthForm

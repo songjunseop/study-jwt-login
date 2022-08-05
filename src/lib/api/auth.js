@@ -11,13 +11,15 @@ export const register = ({ identifier, password }) =>
 
 // export const check = () => client.get('/auth/local/check');
 
-export const check = async ctx => {
-    const { auth } = ctx.state;
-    if(!auth) {
-        ctx.status = 401;
-        return;
-    }
-    ctx.body = auth;
-};
+export const check = () => localStorage.getItem('auth');
 
-export const logout = () => client.post('/auth/local/logout');
+// export const check = async ctx => {
+//     const { auth } = ctx.state;
+//     if(!auth) {
+//         ctx.status = 401;
+//         return;
+//     }
+//     ctx.body = auth;
+// };
+
+export const logout = () => localStorage.removeItem('auth')

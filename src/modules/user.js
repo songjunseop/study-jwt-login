@@ -4,14 +4,14 @@ import * as authAPI from '../lib/api/auth';
 import createRequestSaga, {
     createRequestActionTypes,
 } from '../lib/createRequestSaga';
-const LOGOUT = '/LOGOUT';
+const LOGOUT = 'auth/LOGOUT';
 
-const TEMP_SET_USER = 'user/TEMP_SET_USER';
+const TEMP_SET_USER = 'auth/TEMP_SET_USER';
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
-    'user/CHECK',
+    'auth/CHECK',
 );
 
-export const tempSetUser = createAction(TEMP_SET_USER, user => user);
+export const tempSetUser = createAction(TEMP_SET_USER, auth => auth);
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
 
@@ -19,8 +19,8 @@ const checkSaga = createRequestSaga(CHECK, authAPI.check);
 
 function checkFailureSaga() {
     try {
-        // localStorage.removeItem('auth');
-        console.log('logout')
+        localStorage.removeItem('auth');
+        console.log('checkFailure')
     } catch (e) {
         console.log('localStorage is not working')
     }
@@ -29,8 +29,8 @@ function checkFailureSaga() {
 function* logoutSaga() {
     try {
         yield call(authAPI.logout);
-        localStorage.removeItem('auth');
-
+        // localStorage.removeItem('auth');
+        console.log('logout')
     } catch (e) {
         console.log(e);
     }
@@ -43,29 +43,29 @@ export function* userSaga() {
 }
 
 const initialState = {
-    user: null,
+    auth: null,
     checkError: null,
 };
 
 export default handleActions(
     {
-        [TEMP_SET_USER]: (state, { payload: user }) => ({
+        [TEMP_SET_USER]: (state, { payload: auth }) => ({
             ...state,
-            user,
+            auth,
         }),
-        [CHECK_SUCCESS]: (state, { payload: user }) => ({
+        [CHECK_SUCCESS]: (state, { payload: auth }) => ({
             ...state,
-            user,
+            auth,
             checkError: null,
         }),
         [CHECK_FAILURE]: (state, { payload: error }) => ({
             ...state,
-            user: null,
+            auth: null,
             checkError: error,
         }),
         [LOGOUT]: state => ({
             ...state,
-            user: null,
+            auth: null,
         }),
     },
     initialState,

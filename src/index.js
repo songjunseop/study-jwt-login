@@ -9,10 +9,10 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from "./modules";
 import { tempSetUser, check } from "./modules/user";
 import reportWebVitals from './reportWebVitals';
-// import jwtMiddleware from './lib/jwtMiddleware';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)),);
+
 
 function loadUser() {
     try {
@@ -22,7 +22,7 @@ function loadUser() {
         store.dispatch(tempSetUser(JSON.parse(auth)));
         store.dispatch(check());
     } catch (e) {
-        console.log('localStorage is not working');
+        console.log('localStorage is not working(loadUser)');
     }
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, register } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
@@ -81,12 +81,6 @@ const RegisterForm = () => {
             }
         }
     }, [auth, navigate]);
-
-    // useEffect(() => {
-    //     axios.post('http://localhost:1337/users')
-    //         .then(res => console.log(res.data))
-    //         .catch()
-    // }, [])
 
     return (
         <AuthForm
